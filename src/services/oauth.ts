@@ -6,6 +6,7 @@
 // =========================================================================
 
 import type { UserProfile } from '../types';
+import { getProfile } from './gmail';
 
 // =========================================================================
 // GIS Type Declarations (loaded from CDN, not via npm)
@@ -203,10 +204,37 @@ export async function requestAccessToken(): Promise<{
 }> {
   try {
     // Silent attempt — no popup
-    return await requestAccessTokenWithPrompt('');
+    const result = await requestAccessTokenWithPrompt('');
+    return enrichUserProfile(result);
   } catch {
     // Retry with the consent popup
-    return await requestAccessTokenWithPrompt();
+    const result = await requestAccessTokenWithPrompt();
+    return enrichUserProfile(result);
+  }
+}
+
+/**
+ * Fills in the user's email from the Gmail API if the JWT id_token
+ * decode didn't provide it. This is the most reliable way to get the
+ * sender's email address.
+ */
+async function enrichUserProfile(result: {
+  accessToken: string;
+  user: UserProfile;
+}): Promise<{ accessToken: string; user: UserProfile }> {
+  if (result.user.email) {
+    return result; // Already have the email from the JWT
+  }
+
+  try {
+    const profile = await getProfile(result.accessToken);
+    return {
+      accessToken: result.accessToken,
+      user: { ...result.user, email: profile.email },
+    };
+  } catch {
+    // If the Gmail profile fetch fails, return whatever we have
+    return result;
   }
 }
 
