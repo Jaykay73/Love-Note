@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem *)",
+      "PowerShell(\\(Get-ChildItem -Path \"C:\\\\Users\\\\Admin\\\\Desktop\\\\Love Note\\\\src\" -Recurse -File\\).Count)",
+      "Bash(node -e ' *)"
+    ]
+  }
+}

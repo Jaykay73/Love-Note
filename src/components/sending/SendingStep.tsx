@@ -56,10 +56,28 @@ const SendingStep: React.FC = () => {
   // -----------------------------------------------------------------------
 
   const startSending = useCallback(() => {
-    if (hasStartedRef.current) return;
-    if (sendFlowState.recipients.length === 0) return;
-    if (!authState.accessToken || !authState.user?.email) return;
+    console.log('[SendingStep] startSending called');
+    console.log('[SendingStep] hasStartedRef:', hasStartedRef.current);
+    console.log('[SendingStep] recipients.length:', sendFlowState.recipients.length);
+    console.log('[SendingStep] accessToken exists:', !!authState.accessToken);
+    console.log('[SendingStep] user.email:', authState.user?.email);
 
+    if (hasStartedRef.current) {
+      console.log('[SendingStep] BAILED: already started');
+      return;
+    }
+    if (sendFlowState.recipients.length === 0) {
+      console.log('[SendingStep] BAILED: no recipients');
+      return;
+    }
+    if (!authState.accessToken || !authState.user?.email) {
+      console.log('[SendingStep] BAILED: no access token or email');
+      console.log('[SendingStep] accessToken:', authState.accessToken);
+      console.log('[SendingStep] user:', authState.user);
+      return;
+    }
+
+    console.log('[SendingStep] All checks passed, starting send...');
     hasStartedRef.current = true;
 
     const params: SendParams = {
