@@ -12,6 +12,7 @@
 
 import { useFileParser } from '../../hooks/useFileParser';
 import { useWizard } from '../../hooks/useWizard';
+import { useSendFlow } from '../../hooks/useSendFlow';
 import Card from '../common/Card';
 import NavigationButtons from '../layout/NavigationButtons';
 import DropZone from './DropZone';
@@ -31,6 +32,7 @@ import ValidationWarnings from './ValidationWarnings';
  */
 export default function UploadStep() {
   const { goToNextStep, goToPrevStep } = useWizard();
+  const { dispatch: sendFlowDispatch } = useSendFlow();
   const {
     parsedFile,
     detection,
@@ -40,6 +42,7 @@ export default function UploadStep() {
     error,
     handleFile,
     updateMapping,
+    getValidRecipients,
   } = useFileParser();
 
   // -------------------------------------------------------------------
@@ -49,6 +52,30 @@ export default function UploadStep() {
   const hasEmailColumn = Boolean(mapping.emailColumn);
   const hasValidRecipients = validation !== null && validation.valid.length > 0;
   const canProceed = hasEmailColumn && hasValidRecipients;
+
+  // -------------------------------------------------------------------
+  // Save recipients to SendFlowContext before navigating to Compose
+  // -------------------------------------------------------------------
+
+  const handleContinue = () => {
+    if (!parsedFile || !detection || !validation) return;
+
+    // Persist the file, column detection, and mapping to shared state
+    sendFlowDispatch({ type: 'SET_PARSED_FILE', payload: parsedFile });
+    sendFlowDispatch({ type: 'SET_COLUMN_DETECTION', payload: detection });
+    sendFlowDispatch({ type: 'SET_COLUMN_MAPPING', payload: mapping });
+
+    // Persist the validated recipients so the Compose/Review/Send steps can use them
+    sendFlowDispatch({
+      type: 'SET_RECIPIENTS',
+      payload: {
+        recipients: getValidRecipients(),
+        validation,
+      },
+    });
+
+    goToNextStep();
+  };
 
   // -------------------------------------------------------------------
   // Render
@@ -114,7 +141,7 @@ export default function UploadStep() {
       {/* --- Navigation --- */}
       <NavigationButtons
         onPrev={goToPrevStep}
-        onNext={canProceed ? goToNextStep : undefined}
+        onNext={canProceed ? handleContinue : undefined}
         nextDisabled={!canProceed}
         prevLabel="Back"
         nextLabel="Continue to Compose"
