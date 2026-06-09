@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+/* =========================================================================
+   Print Styles — clean print output for email summaries
+   ========================================================================= */
+@media print {
+  /* Hide navigation, buttons, progress indicators, and non-essential chrome */
+  nav,
+  header,
+  footer,
+  button,
+  .no-print {
+    display: none !important;
+  }
+
+  /* Ensure the main content fills the page */
+  main {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Show card borders and text cleanly */
+  .rounded-xl,
+  .rounded-lg {
+    border: 1px solid #d1d5db !important;
+    box-shadow: none !important;
+  }
+
+  /* Ensure all text is dark enough for print */
+  body {
+    color: #000 !important;
+    background: #fff !important;
+  }
+
+  /* Prevent page breaks inside preview cards */
+  section,
+  .break-inside-avoid {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
+
+/* =========================================================================
+   Reduced Motion — respect user's OS-level motion preference
+   ========================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Allow the spinner to keep spinning but at a much slower rate so it's
+     visible without causing discomfort */
+  .animate-spin {
+    animation-duration: 2s !important;
+  }
+}
