@@ -174,11 +174,24 @@ const SendingStep: React.FC = () => {
 
   // ---- Derive display helpers -------------------------------------------
 
+  // Use the larger of the two totals: what the send-queue knows about
+  // (progress.total, set when send() is called) versus what is stored in the
+  // send-flow context (set by UploadStep and ReviewStep).
+  const displayTotal =
+    progress.total > 0
+      ? progress.total
+      : sendFlowState.recipients.length > 0
+        ? sendFlowState.recipients.length
+        : sendFlowState.sendProgress.total;
+
   // True while the send loop is actively delivering (not idle/completed/etc.)
   const isActive =
     progress.status === 'sending' || progress.status === 'recovering-auth';
   const isFinalState =
     progress.status === 'completed' || progress.status === 'cancelled';
+
+  // True if we genuinely have nothing to send (both sources are empty)
+  const hasNoRecipients = displayTotal === 0;
 
   // ---- Render -----------------------------------------------------------
 
@@ -199,7 +212,7 @@ const SendingStep: React.FC = () => {
           <ProgressBar
             sent={progress.sent}
             failed={progress.failed}
-            total={progress.total}
+            total={displayTotal}
           />
 
           {/* ---- Status Message ---- */}
@@ -208,6 +221,21 @@ const SendingStep: React.FC = () => {
             currentRecipientEmail={progress.currentRecipientEmail}
             status={progress.status}
           />
+
+          {/* ---- No recipients fallback ---- */}
+          {hasNoRecipients && (
+            <div className="flex flex-col items-center gap-3 rounded-xl border-2 border-dashed border-rose-200 bg-rose-50/30 p-6 text-center">
+              <p className="text-sm font-medium text-rose-600">
+                No recipients loaded for this send.
+              </p>
+              <p className="text-xs text-rose-400">
+                Go back to the Upload step and upload your contact list first.
+              </p>
+              <Button variant="secondary" onClick={wizard.goToPrevStep}>
+                Go Back
+              </Button>
+            </div>
+          )}
 
           {/* ---- Actions ---- */}
           <div className="flex justify-center gap-3 pt-2">
