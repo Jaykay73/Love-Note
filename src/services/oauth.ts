@@ -6,7 +6,6 @@
 // =========================================================================
 
 import type { UserProfile } from '../types';
-import { getProfile } from './gmail';
 
 // =========================================================================
 // GIS Type Declarations (loaded from CDN, not via npm)
@@ -183,7 +182,7 @@ export async function initializeGoogleAuth(): Promise<void> {
 
   tokenClient = google.accounts.oauth2.initTokenClient({
     client_id: getClientId(),
-    scope: 'https://www.googleapis.com/auth/gmail.send',
+    scope: 'https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/userinfo.email',
     // Default callback — replaced per-request below
     callback: () => {
       /* no-op */
@@ -214,9 +213,10 @@ export async function requestAccessToken(): Promise<{
 }
 
 /**
- * Fills in the user's email from the Gmail API if the JWT id_token
- * decode didn't provide it. This is the most reliable way to get the
- * sender's email address.
+ * Fills in the user's email from Google's userinfo endpoint if the JWT
+ * id_token decode didn't provide it. Uses the userinfo.email scope which is
+ * read-only and only reveals the user's own email address — not their Gmail
+ * messages or contacts.
  */
 async function enrichUserProfile(result: {
   accessToken: string;
@@ -227,15 +227,25 @@ async function enrichUserProfile(result: {
   }
 
   try {
-    const profile = await getProfile(result.accessToken);
-    return {
-      accessToken: result.accessToken,
-      user: { ...result.user, email: profile.email },
-    };
+    const response = await fetch(
+      'https://www.googleapis.com/oauth2/v3/userinfo',
+      { headers: { Authorization: `Bearer ${result.accessToken}` } }
+    );
+    if (response.ok) {
+      const data = await response.json();
+      return {
+        accessToken: result.accessToken,
+        user: {
+          email: data.email || result.user.email,
+          name: data.name || result.user.name,
+          picture: data.picture || result.user.picture,
+        },
+      };
+    }
   } catch {
-    // If the Gmail profile fetch fails, return whatever we have
-    return result;
+    // If the userinfo fetch fails, return whatever we have
   }
+  return result;
 }
 
 /**
