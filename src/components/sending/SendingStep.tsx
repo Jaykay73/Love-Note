@@ -52,11 +52,10 @@ const SendingStep: React.FC = () => {
   }, [authState.accessToken]);
 
   // -----------------------------------------------------------------------
-  // Auto-start sending on mount
+  // Manual start helper (also called by the auto-start effect)
   // -----------------------------------------------------------------------
 
-  useEffect(() => {
-    // Guard: don't start twice, require recipients + auth
+  const startSending = useCallback(() => {
     if (hasStartedRef.current) return;
     if (sendFlowState.recipients.length === 0) return;
     if (!authState.accessToken || !authState.user?.email) return;
@@ -71,7 +70,6 @@ const SendingStep: React.FC = () => {
       fromName: sendFlowState.template.fromName,
       onTokenExpired: async () => {
         const newToken = await oauth.refreshAccessToken();
-        // Keep React context in sync with the oauth module
         authDispatch({ type: 'TOKEN_REFRESHED', payload: newToken });
         return newToken;
       },
@@ -87,6 +85,14 @@ const SendingStep: React.FC = () => {
     authState.user?.email,
     authDispatch,
   ]);
+
+  // -----------------------------------------------------------------------
+  // Auto-start sending on mount
+  // -----------------------------------------------------------------------
+
+  useEffect(() => {
+    startSending();
+  }, [startSending]);
 
   // -----------------------------------------------------------------------
   // Sync progress to send-flow state
@@ -234,6 +240,18 @@ const SendingStep: React.FC = () => {
               <Button variant="secondary" onClick={wizard.goToPrevStep}>
                 Go Back
               </Button>
+            </div>
+          )}
+
+          {/* ---- Manual start button (shown when idle with recipients but auto-start didn't fire) ---- */}
+          {progress.status === 'idle' && !hasNoRecipients && (
+            <div className="flex flex-col items-center gap-3 pt-2">
+              <Button variant="primary" size="lg" onClick={startSending}>
+                💌 Start Sending Now
+              </Button>
+              <p className="text-xs text-gray-400">
+                {sendFlowState.recipients.length} recipient{sendFlowState.recipients.length !== 1 ? 's' : ''} ready
+              </p>
             </div>
           )}
 
