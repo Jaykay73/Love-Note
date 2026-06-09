@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' https://accounts.google.com https://apis.google.com; style-src 'self' 'unsafe-inline'; connect-src 'self' https://gmail.googleapis.com https://www.googleapis.com https://oauth2.googleapis.com; frame-src https://accounts.google.com; img-src 'self' data: https:;"
+    />
+    <title>Love Note — Church Email Tool</title>
+    <meta name="description" content="Send personalized caring emails to your church family using your own Gmail account. Private, secure, and simple." />
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+  </head>
+  <body class="min-h-screen bg-gray-50 text-gray-900 antialiased">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
