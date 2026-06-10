@@ -20,6 +20,7 @@ import type {
 import { buildMimeMessage, encodeBase64Url } from '../services/mimeBuilder';
 import { sendEmail } from '../services/gmail';
 import { calculateBackoff, getSendDelay } from '../utils/rateLimiter';
+import { interpolate } from '../utils/templateEngine';
 
 // -------------------------------------------------------------------------
 // Constants
@@ -203,13 +204,17 @@ export function useSendQueue(): UseSendQueueReturn {
           currentRecipientEmail: recipient.email,
         }));
 
+        // Interpolate placeholders for this specific recipient
+        const personalizedSubject = interpolate(template.subject, recipient);
+        const personalizedBody = interpolate(template.body, recipient);
+
         // Build the MIME message once per recipient
         const mimeMessage = buildMimeMessage({
           fromName,
           fromEmail,
           to: recipient.email,
-          subject: template.subject,
-          body: template.body,
+          subject: personalizedSubject,
+          body: personalizedBody,
         });
         const raw = encodeBase64Url(mimeMessage);
 
