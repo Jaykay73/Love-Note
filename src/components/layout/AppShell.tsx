@@ -31,8 +31,10 @@ const AppShell: React.FC<AppShellProps> = ({ children }) => {
         {children}
       </main>
 
-      <footer className="py-4 text-center text-xs text-rose-400 border-t border-rose-100">
-        💌 Love Note &copy; {new Date().getFullYear()}
+      <footer className="py-4 text-center text-xs text-rose-400 border-t border-rose-100 space-x-4">
+        <span>💌 Love Note &copy; {new Date().getFullYear()}</span>
+        <a href="/privacy.html" className="hover:text-rose-600 underline underline-offset-2">Privacy</a>
+        <a href="/terms.html" className="hover:text-rose-600 underline underline-offset-2">Terms</a>
       </footer>
     </div>
   );
