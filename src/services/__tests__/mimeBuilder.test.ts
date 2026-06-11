@@ -4,8 +4,8 @@ import type { MimeMessageParams } from '../mimeBuilder';
 
 describe('buildMimeMessage', () => {
   const params: MimeMessageParams = {
-    fromName: 'Pastor John',
-    fromEmail: 'pastor@church.org',
+    fromName: 'Ademidara Adeyemi',
+    fromEmail: 'ademidara@cacsaunilorin.org',
     to: 'member@example.com',
     subject: 'Thinking of you',
     body: 'Hello friend, just wanted to let you know we care.',
@@ -13,7 +13,7 @@ describe('buildMimeMessage', () => {
 
   it('includes From header with display name and email', () => {
     const msg = buildMimeMessage(params);
-    expect(msg).toContain('From: "Pastor John" <pastor@church.org>');
+    expect(msg).toContain('From: "Ademidara Adeyemi" <ademidara@cacsaunilorin.org>');
   });
 
   it('includes To header with recipient email', () => {
