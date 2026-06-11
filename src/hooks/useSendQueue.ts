@@ -207,6 +207,10 @@ export function useSendQueue(): UseSendQueueReturn {
         // Interpolate placeholders for this specific recipient
         const personalizedSubject = interpolate(template.subject, recipient);
         const personalizedBody = interpolate(template.body, recipient);
+        console.log('[sendQueue] recipient:', recipient.first_name, recipient.email);
+        console.log('[sendQueue] template subject:', template.subject);
+        console.log('[sendQueue] template body:', template.body);
+        console.log('[sendQueue] personalized subject:', personalizedSubject);
 
         // Build the MIME message once per recipient
         const mimeMessage = buildMimeMessage({
