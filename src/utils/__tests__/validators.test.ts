@@ -6,7 +6,7 @@ describe('isValidEmail', () => {
   it('passes valid email addresses', () => {
     expect(isValidEmail('test@example.com')).toBe(true);
     expect(isValidEmail('user+tag@domain.co')).toBe(true);
-    expect(isValidEmail('john.doe@church.org')).toBe(true);
+    expect(isValidEmail('ademidara.o@cacsaunilorin.org')).toBe(true);
     expect(isValidEmail('a@b.co')).toBe(true);
   });
 
@@ -29,16 +29,16 @@ describe('validateRecipients', () => {
 
   it('returns valid rows when all data is correct', () => {
     const rows = [
-      { Email: 'alice@test.com', 'First Name': 'Alice', 'Last Name': 'Smith' },
-      { Email: 'bob@test.com', 'First Name': 'Bob', 'Last Name': 'Jones' },
+      { Email: 'ademidara@test.com', 'First Name': 'Ademidara', 'Last Name': 'Oluwaseun' },
+      { Email: 'oluwapelumi@test.com', 'First Name': 'Oluwapelumi', 'Last Name': 'Adebayo' },
     ];
     const result = validateRecipients(rows, mapping);
     expect(result.valid).toHaveLength(2);
     expect(result.invalid).toHaveLength(0);
     expect(result.skippedCount).toBe(0);
     expect(result.duplicateCount).toBe(0);
-    expect(result.valid[0].email).toBe('alice@test.com');
-    expect(result.valid[0].full_name).toBe('Alice Smith');
+    expect(result.valid[0].email).toBe('ademidara@test.com');
+    expect(result.valid[0].full_name).toBe('Ademidara Oluwaseun');
   });
 
   it('flags empty email rows as invalid with empty-email reason', () => {
@@ -95,10 +95,10 @@ describe('validateRecipients', () => {
 
   it('computes full_name correctly from first and last names', () => {
     const rows = [
-      { Email: 'full@test.com', 'First Name': 'John', 'Last Name': 'Doe' },
+      { Email: 'full@test.com', 'First Name': 'Ademidara', 'Last Name': 'Oluwaseun' },
     ];
     const result = validateRecipients(rows, mapping);
-    expect(result.valid[0].full_name).toBe('John Doe');
+    expect(result.valid[0].full_name).toBe('Ademidara Oluwaseun');
   });
 
   it('returns empty invalid array when all rows are valid', () => {
@@ -119,9 +119,9 @@ describe('validateRecipients', () => {
   });
 
   it('falls back to email local-part when first_name is empty', () => {
-    const rows = [{ Email: 'jane.doe@test.com', 'First Name': '', 'Last Name': 'Doe' }];
+    const rows = [{ Email: 'oluwapelumi.a@test.com', 'First Name': '', 'Last Name': 'Adebayo' }];
     const result = validateRecipients(rows, mapping);
-    expect(result.valid[0].first_name).toBe('jane.doe');
-    expect(result.valid[0].full_name).toBe('jane.doe Doe');
+    expect(result.valid[0].first_name).toBe('oluwapelumi.a');
+    expect(result.valid[0].full_name).toBe('oluwapelumi.a Adebayo');
   });
 });
