@@ -183,15 +183,15 @@ export default function WelcomeStep() {
 
                 {/* Recipient Details */}
                 <div className="space-y-1 text-xs text-stone-600 font-display">
-                  <div><span className="font-semibold text-stone-400 uppercase tracking-wider text-[9px] mr-2">To:</span> Sarah Jenkins &lt;sarah.j@email.com&gt;</div>
-                  <div><span className="font-semibold text-stone-400 uppercase tracking-wider text-[9px] mr-2">From:</span> pastor.dave@gracefellowship.org</div>
+                  <div><span className="font-semibold text-stone-400 uppercase tracking-wider text-[9px] mr-2">To:</span> Oluwapelumi Adebayo &lt;oluwapelumi.a@email.com&gt;</div>
+                  <div><span className="font-semibold text-stone-400 uppercase tracking-wider text-[9px] mr-2">From:</span> ademidara.adeyemi@cacsaunilorin.org</div>
                 </div>
 
                 {/* Subject preview */}
                 <div className="space-y-1">
                   <label className="text-[10px] font-semibold text-stone-400 uppercase tracking-wider font-display">Generated Subject</label>
                   <div className="text-xs font-bold text-stone-800 bg-white/70 border border-stone-200/30 rounded-lg px-3 py-2">
-                    Thinking of you, <span className="bg-brand-secondary/35 text-brand-dark px-1.5 py-0.5 rounded font-semibold">Sarah</span>
+                    Thinking of you, <span className="bg-brand-secondary/35 text-brand-dark px-1.5 py-0.5 rounded font-semibold">Oluwapelumi</span>
                   </div>
                 </div>
 
@@ -200,7 +200,7 @@ export default function WelcomeStep() {
                   <label className="text-[10px] font-semibold text-stone-400 uppercase tracking-wider font-display">Generated Email Body</label>
                   <div className="text-xs text-stone-700 bg-white/70 border border-stone-200/30 rounded-lg p-3 min-h-[140px] leading-relaxed whitespace-pre-wrap">
                     {"Hi "}
-                    <span className="bg-brand-secondary/35 text-brand-dark px-1.5 py-0.5 rounded font-semibold">Sarah</span>
+                    <span className="bg-brand-secondary/35 text-brand-dark px-1.5 py-0.5 rounded font-semibold">Oluwapelumi</span>
                     {",\n\nI hope you're doing well. Just wanted to send a quick note to let you know we're praying for you and your family as you recover from "}
                     <span className="bg-brand-secondary/35 text-brand-dark px-1.5 py-0.5 rounded font-semibold">knee surgery</span>
                     {".\n\nWe would love to know how we can support you with your current need for "}
