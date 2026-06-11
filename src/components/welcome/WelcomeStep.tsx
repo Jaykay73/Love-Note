@@ -72,7 +72,7 @@ export default function WelcomeStep() {
 
           {/* Subheadline */}
           <p className="mt-6 max-w-2xl text-base md:text-lg text-stone-600 font-sans leading-relaxed px-2">
-            Create beautiful, personalized messages for your church or care group. Send them directly from your personal Gmail account without intermediate servers, databases, or privacy compromises.
+            Create beautiful, personalized messages for your church or welfare group. Send them directly from your personal Gmail account without intermediate servers, databases, or privacy compromises.
           </p>
 
           {/* Auth Error Display */}
@@ -148,7 +148,7 @@ export default function WelcomeStep() {
                 <div className="flex flex-wrap gap-1.5">
                   <span className="text-[10px] bg-stone-100 text-stone-600 px-2 py-0.5 rounded-md font-mono">{'{{first_name}}'}</span>
                   <span className="text-[10px] bg-stone-100 text-stone-600 px-2 py-0.5 rounded-md font-mono">{'{{family_update}}'}</span>
-                  <span className="text-[10px] bg-stone-100 text-stone-600 px-2 py-0.5 rounded-md font-mono">{'{{pastoral_need}}'}</span>
+                  <span className="text-[10px] bg-stone-100 text-stone-600 px-2 py-0.5 rounded-md font-mono">{'{{welfare_need}}'}</span>
                 </div>
 
                 {/* Subject field */}
@@ -168,7 +168,7 @@ export default function WelcomeStep() {
                     {",\n\nI hope you're doing well. Just wanted to send a quick note to let you know we're praying for you and your family as you recover from "}
                     <span className="text-brand-primary">{'{{family_update}}'}</span>
                     {".\n\nWe would love to know how we can support you with your current need for "}
-                    <span className="text-brand-primary">{'{{pastoral_need}}'}</span>
+                    <span className="text-brand-primary">{'{{welfare_need}}'}</span>
                     {". Please reply directly and let us know!\n\nWarmly,\nAdemidara Adeyemi"}
                   </div>
                 </div>
@@ -217,7 +217,7 @@ export default function WelcomeStep() {
         <section className="w-full bg-white/50 border-y border-stone-200/30 py-20">
           <div className="max-w-5xl mx-auto px-4 md:px-6">
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <h2 className="text-xs font-semibold text-brand-primary tracking-widest uppercase font-display mb-3">Designed for Care</h2>
+              <h2 className="text-xs font-semibold text-brand-primary tracking-widest uppercase font-display mb-3">Designed for Community</h2>
               <p className="text-3xl font-bold font-serif text-brand-dark">Built with safety, intimacy, and simplicity in mind.</p>
             </div>
 
@@ -269,7 +269,7 @@ export default function WelcomeStep() {
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-xs font-semibold text-brand-primary tracking-widest uppercase font-display mb-3">Workflow</h2>
             <p className="text-3xl font-bold font-serif text-brand-dark">How Love Note Works</p>
-            <p className="text-stone-500 text-sm mt-3">Three simple steps to connect with your care recipients.</p>
+            <p className="text-stone-500 text-sm mt-3">Three simple steps to connect with your church members.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
@@ -281,7 +281,7 @@ export default function WelcomeStep() {
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-primary text-white font-display font-bold shadow-md mb-6">
                 1
               </div>
-              <h3 className="text-base font-bold text-stone-800 font-display mb-2">Upload Care List</h3>
+              <h3 className="text-base font-bold text-stone-800 font-display mb-2">Upload Welfare List</h3>
               <p className="text-stone-600 text-xs leading-relaxed max-w-xs">
                 Drag and drop your spreadsheet. Map your columns to tags like email, name, and check-in details.
               </p>
@@ -316,7 +316,7 @@ export default function WelcomeStep() {
           <div className="max-w-3xl mx-auto px-4 text-center">
             <span className="text-4xl text-brand-secondary/60 font-serif leading-none">“</span>
             <blockquote className="text-lg md:text-xl font-serif text-brand-dark italic leading-relaxed mb-6 px-4">
-              "Our congregational care team checks in on dozens of family coordinators weekly. Before Love Note, we struggled between sending impersonal email blasts or spending hours copy-pasting. Now, we compose personal letters in minutes. Responses land straight back in my Gmail inbox."
+              "Our welfare team checks in on dozens of church members weekly. Before Love Note, we struggled between sending impersonal email blasts or spending hours copy-pasting. Now, we compose personal letters in minutes. Responses land straight back in my Gmail inbox."
             </blockquote>
             <div className="font-display">
               <div className="text-sm font-bold text-stone-800">Oluwapelumi Ogunleye</div>
@@ -356,7 +356,7 @@ export default function WelcomeStep() {
                 <span className="font-serif italic font-bold text-brand-dark text-lg">Love Note</span>
               </div>
               <p className="text-stone-500 text-xs leading-relaxed max-w-xs">
-                A local-first, privacy-respecting tool for pastoral care teams, volunteer coordinators, and community groups to send personalized encouragement.
+                A local-first, privacy-respecting tool for welfare teams, volunteer coordinators, and church groups to send personalized encouragement.
               </p>
             </div>
             
