@@ -319,8 +319,8 @@ export default function WelcomeStep() {
               "Our congregational care team checks in on dozens of family coordinators weekly. Before Love Note, we struggled between sending impersonal email blasts or spending hours copy-pasting. Now, we compose personal letters in minutes. Responses land straight back in my Gmail inbox."
             </blockquote>
             <div className="font-display">
-              <div className="text-sm font-bold text-stone-800">Helen Miller</div>
-              <div className="text-xs text-stone-500 mt-0.5">Director of Family Care • Grace Fellowship</div>
+              <div className="text-sm font-bold text-stone-800">Oluwapelumi Ogunleye</div>
+              <div className="text-xs text-stone-500 mt-0.5">Welfare Coordinator • CACSA Unilorin</div>
             </div>
           </div>
         </section>
