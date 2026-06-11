@@ -34,7 +34,7 @@ export interface MimeMessageParams {
  *
  * Example output:
  *
- *   From: "Pastor John" <pastor@church.org>
+ *   From: "Ademidara Adeyemi" <ademidara@cacsaunilorin.org>
  *   To: member@example.com
  *   Subject: Thinking of you
  *   Content-Type: text/plain; charset="UTF-8"
