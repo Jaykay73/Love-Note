@@ -45,19 +45,19 @@ describe('SuccessSummary', () => {
   it('applies correct heading color for all sent (green)', () => {
     render(<SuccessSummary sent={10} failed={0} total={10} />);
     const heading = screen.getByText('All emails sent!');
-    expect(heading.className).toContain('text-green-800');
+    expect(heading.className).toContain('text-brand-accent');
   });
 
   it('applies correct heading color for some sent (yellow)', () => {
     render(<SuccessSummary sent={5} failed={5} total={10} />);
     const heading = screen.getByText('Almost there!');
-    expect(heading.className).toContain('text-yellow-800');
+    expect(heading.className).toContain('text-brand-primary');
   });
 
   it('applies correct heading color for none sent (red)', () => {
     render(<SuccessSummary sent={0} failed={5} total={5} />);
     const heading = screen.getByText('Something went wrong');
-    expect(heading.className).toContain('text-red-800');
+    expect(heading.className).toContain('text-rose-700');
   });
 });
 
@@ -67,9 +67,9 @@ describe('FailureList', () => {
   ): SendResult => ({
     recipient: {
       email: 'fail@test.com',
-      first_name: 'Fail',
-      last_name: 'User',
-      full_name: 'Fail User',
+      first_name: 'Ademidara',
+      last_name: 'Nwachukwu',
+      full_name: 'Ademidara Nwachukwu',
       rowIndex: 0,
     },
     status: 'failed',
@@ -152,9 +152,9 @@ describe('ExportButton', () => {
   const makeSendResult = (email: string): SendResult => ({
     recipient: {
       email,
-      first_name: 'Test',
-      last_name: 'User',
-      full_name: 'Test User',
+      first_name: 'Oluwapelumi',
+      last_name: 'Adebayo',
+      full_name: 'Oluwapelumi Adebayo',
       rowIndex: 0,
     },
     status: 'failed',
@@ -163,9 +163,9 @@ describe('ExportButton', () => {
 
   const makeRecipient = (email: string): Recipient => ({
     email,
-    first_name: 'Test',
-    last_name: 'User',
-    full_name: 'Test User',
+    first_name: 'Oluwapelumi',
+    last_name: 'Adebayo',
+    full_name: 'Oluwapelumi Adebayo',
     rowIndex: 0,
   });
 
