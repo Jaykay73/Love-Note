@@ -10,9 +10,9 @@ import type { Recipient, MessageTemplate } from '../../types';
 function makeRecipient(overrides: Partial<Recipient> = {}): Recipient {
   return {
     email: 'test@example.com',
-    first_name: 'John',
-    last_name: 'Doe',
-    full_name: 'John Doe',
+    first_name: 'Ademidara',
+    last_name: 'Oluwaseun',
+    full_name: 'Ademidara Oluwaseun',
     rowIndex: 0,
     ...overrides,
   };
@@ -22,7 +22,7 @@ function makeTemplate(overrides: Partial<MessageTemplate> = {}): MessageTemplate
   return {
     subject: 'Hello {{first_name}}',
     body: 'Dear {{full_name}},\n\nThis is a test message for {{email}}.',
-    fromName: 'Test Sender',
+    fromName: 'Ademidara Adeyemi',
     ...overrides,
   };
 }
@@ -32,7 +32,7 @@ describe('interpolate', () => {
     const tpl = '{{first_name}} {{last_name}} ({{full_name}}) <{{email}}>';
     const recipient = makeRecipient();
     const result = interpolate(tpl, recipient);
-    expect(result).toBe('John Doe (John Doe) <test@example.com>');
+    expect(result).toBe('Ademidara Oluwaseun (Ademidara Oluwaseun) <test@example.com>');
   });
 
   it('uses recipient first_name value verbatim (fallback handled upstream)', () => {
@@ -46,21 +46,21 @@ describe('interpolate', () => {
     const tpl = '{{first_name}} {{last_name}}';
     const recipient = makeRecipient({ last_name: '' });
     const result = interpolate(tpl, recipient);
-    expect(result).toBe('John ');
+    expect(result).toBe('Ademidara ');
   });
 
   it('uses computed full_name for {{full_name}}', () => {
     const tpl = 'Hello {{full_name}}';
-    const recipient = makeRecipient({ full_name: 'John Doe' });
+    const recipient = makeRecipient({ full_name: 'Oluwapelumi Adebayo' });
     const result = interpolate(tpl, recipient);
-    expect(result).toBe('Hello John Doe');
+    expect(result).toBe('Hello Oluwapelumi Adebayo');
   });
 
   it('uses recipient email for {{email}}', () => {
     const tpl = 'Contact: {{email}}';
-    const recipient = makeRecipient({ email: 'user@church.org' });
+    const recipient = makeRecipient({ email: 'user@cacsaunilorin.org' });
     const result = interpolate(tpl, recipient);
-    expect(result).toBe('Contact: user@church.org');
+    expect(result).toBe('Contact: user@cacsaunilorin.org');
   });
 
   it('handles empty template string', () => {
@@ -72,37 +72,37 @@ describe('interpolate', () => {
   it('handles templates with special characters', () => {
     const tpl = 'Subject: "{{first_name}}" <{{email}}> & <{{last_name}}>';
     const recipient = makeRecipient({
-      first_name: 'O\'Brien',
-      last_name: 'Smith-Jones',
-      email: 'ob@test.com',
+      first_name: 'Oluwapelumi',
+      last_name: 'Okafor-Eze',
+      email: 'oluwapelumi@test.com',
     });
     const result = interpolate(tpl, recipient);
-    expect(result).toBe('Subject: "O\'Brien" <ob@test.com> & <Smith-Jones>');
+    expect(result).toBe('Subject: "Oluwapelumi" <oluwapelumi@test.com> & <Okafor-Eze>');
   });
 
   it('is case insensitive for placeholders', () => {
-    const recipient = makeRecipient({ first_name: 'Jane' });
-    expect(interpolate('{{First_Name}}', recipient)).toBe('Jane');
-    expect(interpolate('{{FIRST_NAME}}', recipient)).toBe('Jane');
-    expect(interpolate('{{first_name}}', recipient)).toBe('Jane');
+    const recipient = makeRecipient({ first_name: 'Oluwapelumi' });
+    expect(interpolate('{{First_Name}}', recipient)).toBe('Oluwapelumi');
+    expect(interpolate('{{FIRST_NAME}}', recipient)).toBe('Oluwapelumi');
+    expect(interpolate('{{first_name}}', recipient)).toBe('Oluwapelumi');
   });
 
   it('leaves unknown placeholders unchanged', () => {
     const tpl = 'Hello {{first_name}} {{unknown}}';
     const recipient = makeRecipient();
     const result = interpolate(tpl, recipient);
-    expect(result).toBe('Hello John {{unknown}}');
+    expect(result).toBe('Hello Ademidara {{unknown}}');
   });
 });
 
 describe('interpolateTemplate', () => {
   it('interpolates both subject and body', () => {
     const template = makeTemplate();
-    const recipient = makeRecipient({ email: 'jane@test.com' });
+    const recipient = makeRecipient({ email: 'oluwapelumi@test.com' });
     const result = interpolateTemplate(template, recipient);
-    expect(result.subject).toBe('Hello John');
-    expect(result.body).toContain('Dear John Doe');
-    expect(result.body).toContain('jane@test.com');
+    expect(result.subject).toBe('Hello Ademidara');
+    expect(result.body).toContain('Dear Ademidara Oluwaseun');
+    expect(result.body).toContain('oluwapelumi@test.com');
   });
 
   it('returns empty subject and body when template is empty', () => {
